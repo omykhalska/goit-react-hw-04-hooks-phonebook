@@ -7,13 +7,10 @@ import Filter from './components/Filter';
 import { Container, MainTitle, Title, Message } from './App.styled';
 
 function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
+  });
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    const savedContacts = JSON.parse(window.localStorage.getItem('contacts'));
-    savedContacts && setContacts(savedContacts);
-  }, []);
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
